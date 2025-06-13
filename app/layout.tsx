@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Volkhov } from "next/font/google";
+import { Racing_Sans_One, Geist, Geist_Mono, Volkhov } from "next/font/google";
 import "./globals.css";
-import Header from './components/Header'
-import SawBlade from './components/SawBlade'
+import Header from "./components/Header";
+import SawBlade from "./components/SawBlade";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,10 +21,16 @@ export const metadata: Metadata = {
 
 const merriweather = Volkhov({
   variable: "--font-merriweather", // Add variable property
-  weight: ['400'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
+  weight: ["400"],
+  style: ["normal"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const racingSansOne = Racing_Sans_One({
+  weight: "400", // Racing Sans One only has 400 weight
+  subsets: ["latin"],
+  variable: "--font-racing",
 });
 
 export default function RootLayout({
@@ -35,13 +41,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable}  antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable} ${racingSansOne.variable} antialiased`}
       >
         <SawBlade />
         <Header />
-        <main>
-        {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );
