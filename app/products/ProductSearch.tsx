@@ -33,7 +33,7 @@ export default function ProductSearch({
     <div className="">
       <input
         type="text"
-        className="border border-[#4CBB17] bg-white focus:border-[#4CBB17] mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+        className="border border-primary bg-white focus:border-primary mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
         placeholder="Search products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

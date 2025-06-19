@@ -16,6 +16,8 @@ export default function ProductDefault({ dataLookup }) {
     cssEase: "ease-in-out",
     pauseOnHover: true,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 4000,
     // beforeChange: (current, next) => setActiveSlide(next),
     accessibility: true,
   };
@@ -39,7 +41,7 @@ export default function ProductDefault({ dataLookup }) {
 
   return (
     <div className="p-4 bg-white border-x-2 border-b-2 pb-10">
-      <div className="text-3xl font-bold text-red-800 -rotate-4 inline-block">
+      <div className="text-3xl font-sriracha font-bold text-red-700 -rotate-4 inline-block">
         Top Sellers...
       </div>
       <Slider {...settings}>

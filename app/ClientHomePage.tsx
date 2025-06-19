@@ -37,7 +37,7 @@ export default function ClientHomePage() {
 
       {/* Content */}
       <div
-        className={`relative z-10 flex min-h-screen flex-col items-stretch pt-5 px-1 transition-opacity duration-1000 ${
+        className={`relative z-10 flex min-h-screen flex-col items-stretch  transition-opacity duration-1000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >

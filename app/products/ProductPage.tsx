@@ -43,7 +43,7 @@ export default function ProductPage({ data, dataLookup }: Props) {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
-    <div className="relative z-10 flex min-h-screen flex-col md:mx-[10vw] items-stretch pt-[50px] md:pt-[60px]">
+    <div className="relative z-10 flex min-h-screen flex-col items-stretch">
       <div className="mb-4 flex justify-between w-full">
         <div>
           <label className="flex items-center gap-2">

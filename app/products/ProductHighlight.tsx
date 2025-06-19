@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductHighlight({ data }) {
   return (
@@ -14,6 +15,13 @@ export default function ProductHighlight({ data }) {
           <p className="text-sm text-gray-700">{data["Marketing Copy"]}</p>
           <p className="text-sm pt-3 text-gray-700">
             Usage: {data["Application"]}
+          </p>
+          <p className="text-sm text-gray-700 text-center mt-5">
+            <Link href={`/product/${data["Item Number"]}`}>
+              <button className="px-4 py-2 bg-primary text-white font-bold rounded hover:bg-secondary">
+                View Product
+              </button>
+            </Link>
           </p>
         </div>
 

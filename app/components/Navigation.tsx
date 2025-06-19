@@ -16,7 +16,17 @@ export default function Navigation() {
               : "text-gray-300 hover:text-white"
           }`}
         >
-          Home
+          Products
+        </Link>
+        <Link
+          href="/sharpening"
+          className={`px-3  rounded ${
+            pathname === "/sharpening"
+              ? "bg-kelly-green text-white"
+              : "text-gray-300 hover:text-white"
+          }`}
+        >
+          Sharpening
         </Link>
         <Link
           href="/visit"

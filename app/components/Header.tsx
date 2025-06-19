@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import Navigation from "./Navigation";
 
 export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
@@ -38,8 +39,8 @@ export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
       ${isVisible ? "translate-x-0" : "-translate-x-full"}
     `}
       >
-        <h1 className="absolute  left-18 md:left-50 text-[#4CBB17] text-3xl md:text-7xl font-racing uppercase whitespace-nowrap">
-          {siteName}
+        <h1 className="absolute  left-18 md:left-50 text-primary text-3xl md:text-7xl font-racing uppercase whitespace-nowrap">
+          <Link href="/">{siteName}</Link>
         </h1>
       </div>
       <div style={{ paddingLeft: "100px" }}>

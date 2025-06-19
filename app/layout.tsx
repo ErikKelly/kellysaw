@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Racing_Sans_One, Geist, Geist_Mono, Volkhov } from "next/font/google";
+import {
+  Racing_Sans_One,
+  Sriracha,
+  Geist,
+  Geist_Mono,
+  Volkhov,
+} from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import SawBlade from "./components/SawBlade";
+import { ProductProvider } from "./contexts/ProductContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +40,12 @@ const racingSansOne = Racing_Sans_One({
   variable: "--font-racing",
 });
 
+const sriracha = Sriracha({
+  weight: "400", // Racing Sans One only has 400 weight
+  subsets: ["latin"],
+  variable: "--font-sriracha",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,11 +54,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable} ${racingSansOne.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable} ${racingSansOne.variable} ${sriracha.variable} antialiased`}
       >
         <SawBlade />
         <Header />
-        <main className="mt-[50px]">{children}</main>
+        <main className="md:mx-[10vw] pt-[140px]">
+          <ProductProvider>{children}</ProductProvider>
+        </main>
       </body>
     </html>
   );

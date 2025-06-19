@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductCard({
   row,
@@ -24,7 +25,13 @@ export default function ProductCard({
           height={200}
           className="w-full h-48 object-contain rounded mb-2"
         />
-        <p className="text-sm text-gray-700">{row["Marketing Copy"]}</p>
+        <p className="text-sm text-gray-700 text-center">
+          <Link href={`/product/${row["Item Number"]}`}>
+            <button className="px-4 py-2 bg-primary text-white font-bold rounded hover:bg-secondary">
+              View Product
+            </button>
+          </Link>
+        </p>
       </div>
     </>
   );
