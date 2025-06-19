@@ -6,11 +6,12 @@ import ProductPage from "./ProductPage";
 
 export default function Products() {
   const [data, setData] = useState([]);
+  const [dataLookup, setDataLookup] = useState({}); // Add this
   const [loading, setLoading] = useState(true);
 
   const loadCSV = async () => {
     try {
-      const response = await fetch("/data/saw_product_list.csv");
+      const response = await fetch("/data/product_list.csv");
       const csvText = await response.text();
 
       const result = Papa.parse(csvText, {
@@ -21,6 +22,16 @@ export default function Products() {
       });
 
       setData(result.data);
+
+      const itemLookup = {};
+      result.data.forEach((item) => {
+        if (item["Item Number"]) {
+          // Replace with your actual column name
+          itemLookup[item["Item Number"]] = item;
+        }
+      });
+      setDataLookup(itemLookup);
+
       console.log("CSV loaded:"); // Log the parsed data
       console.log("Number of rows:", result.data.length);
     } catch (error) {
@@ -36,11 +47,5 @@ export default function Products() {
 
   if (loading) return <div>Loading Products...</div>;
 
-  return (
-    <main
-      className={`relative z-10 flex min-h-screen flex-col items-center pt-32`}
-    >
-      <ProductPage data={data} />
-    </main>
-  );
+  return <ProductPage data={data} dataLookup={dataLookup} />;
 }

@@ -4,7 +4,7 @@ import ProductList from "./ProductList";
 import ProductSearch from "./ProductSearch";
 import ProductDefault from "./ProductDefault";
 
-export default function ProductPage({ data }: Props) {
+export default function ProductPage({ data, dataLookup }: Props) {
   const [filteredData, setFilteredData] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [activeMode, setActiveMode] = useState("none"); // 'filter', 'search', 'none'
@@ -43,7 +43,7 @@ export default function ProductPage({ data }: Props) {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
-    <div className="mx-[10vw] w-full">
+    <div className="relative z-10 flex min-h-screen flex-col md:mx-[10vw] items-stretch pt-[50px] md:pt-[60px]">
       <div className="mb-4 flex justify-between w-full">
         <div>
           <label className="flex items-center gap-2">
@@ -72,12 +72,10 @@ export default function ProductPage({ data }: Props) {
         isActive={activeMode === "filter"}
       />
 
-      {activeMode === "none" ? (
-        <ProductDefault />
+      {getDisplayData().length === 0 ? (
+        <ProductDefault dataLookup={dataLookup} />
       ) : (
-        <>
-          <ProductList data={getDisplayData()} />
-        </>
+        <ProductList data={getDisplayData()} />
       )}
     </div>
   );

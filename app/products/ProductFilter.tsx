@@ -17,42 +17,107 @@ export default function ProductFilter({
   const [uniqueProductGroup, setProductGroupValues] = useState([]);
   const [uniqueCategory, setCategoryValues] = useState([]);
   const [uniqueSubCategory, setSubCategoryValues] = useState([]);
-  const [uniqueProduct, setProductValues] = useState([]);
 
   // Selected values for each dropdown
   const [selectedProductGroupValue, setSelectedProductGroupValue] =
     useState("");
   const [selectedCategoryValue, setSelectedCategoryValue] = useState("");
   const [selectedSubCategoryValue, setSelectedSubCategoryValue] = useState("");
-  const [selectedProductValue, setSelectedProductValue] = useState("");
 
+  // Get field names for easier reference
+  const getFieldNames = () => {
+    if (data.length === 0) return {};
+    const keys = Object.keys(data[0]);
+    return {
+      productGroup: keys[2],
+      category: keys[3],
+      subCategory: keys[4],
+      product: keys[5],
+    };
+  };
+
+  // Function to get currently filtered data based on selections
+  const getFilteredData = () => {
+    const fields = getFieldNames();
+    if (!fields.productGroup) return [];
+
+    let filtered = data;
+
+    // Apply Product Group filter if selected
+    if (selectedProductGroupValue) {
+      filtered = filtered.filter(
+        (row) => row[fields.productGroup] === selectedProductGroupValue
+      );
+    }
+
+    // Apply Category filter if selected
+    if (selectedCategoryValue) {
+      filtered = filtered.filter(
+        (row) => row[fields.category] === selectedCategoryValue
+      );
+    }
+
+    // Apply SubCategory filter if selected
+    if (selectedSubCategoryValue) {
+      filtered = filtered.filter(
+        (row) => row[fields.subCategory] === selectedSubCategoryValue
+      );
+    }
+
+    return filtered;
+  };
+
+  // Send filtered data to parent whenever any selection changes
+  useEffect(() => {
+    const filteredData = getFilteredData();
+
+    // Send results if any filter is selected, otherwise send empty array
+    if (
+      selectedProductGroupValue ||
+      selectedCategoryValue ||
+      selectedSubCategoryValue
+    ) {
+      onFilterChange(filteredData);
+    } else {
+      onFilterChange([]);
+    }
+  }, [
+    selectedProductGroupValue,
+    selectedCategoryValue,
+    selectedSubCategoryValue,
+    data,
+  ]);
+
+  // 1. Initialize Product Group options
   useEffect(() => {
     if (data.length > 0) {
-      const fieldName = Object.keys(data[0])[2];
+      const fields = getFieldNames();
       const unique = [
         ...new Set(
-          data.map((row) => row[fieldName]).filter((value) => value != null) // Excludes null and undefined
+          data
+            .map((row) => row[fields.productGroup])
+            .filter((value) => value != null)
         ),
-      ];
-      setProductGroupValues(unique); // Store in state
+      ].sort();
+      setProductGroupValues(unique);
     }
   }, [data]);
 
+  // 2. When Product Group changes, update Category options
   useEffect(() => {
     if (data.length > 0 && selectedProductGroupValue) {
-      const productGroupField = Object.keys(data[0])[2];
-      const categoryField = Object.keys(data[0])[3];
+      const fields = getFieldNames();
 
       // Filter data where Product Group matches selection
       const filteredData = data.filter(
-        (row) => row[productGroupField] === selectedProductGroupValue
+        (row) => row[fields.productGroup] === selectedProductGroupValue
       );
 
       // Get unique values for Category from filtered data
       const uniqueCategories = [
         ...new Set(
           filteredData
-            .map((row) => row[categoryField])
+            .map((row) => row[fields.category])
             .filter((value) => value != null && value !== "")
         ),
       ].sort();
@@ -61,39 +126,33 @@ export default function ProductFilter({
       // Reset subsequent selections
       setSelectedCategoryValue("");
       setSelectedSubCategoryValue("");
-      setSelectedProductValue("");
       setSubCategoryValues([]);
-      setProductValues([]);
     } else {
       // If no Product Group selected, clear dependent dropdowns
       setCategoryValues([]);
       setSelectedCategoryValue("");
       setSelectedSubCategoryValue("");
-      setSelectedProductValue("");
       setSubCategoryValues([]);
-      setProductValues([]);
     }
   }, [data, selectedProductGroupValue]);
 
   // 3. When Category changes, update SubCategory options
   useEffect(() => {
     if (data.length > 0 && selectedProductGroupValue && selectedCategoryValue) {
-      const productGroupField = Object.keys(data[0])[2];
-      const categoryField = Object.keys(data[0])[3];
-      const subCategoryField = Object.keys(data[0])[4];
+      const fields = getFieldNames();
 
       // Filter data where both Product Group and Category match selections
       const filteredData = data.filter(
         (row) =>
-          row[productGroupField] === selectedProductGroupValue &&
-          row[categoryField] === selectedCategoryValue
+          row[fields.productGroup] === selectedProductGroupValue &&
+          row[fields.category] === selectedCategoryValue
       );
 
       // Get unique values for SubCategory from filtered data
       const uniqueSubCategories = [
         ...new Set(
           filteredData
-            .map((row) => row[subCategoryField])
+            .map((row) => row[fields.subCategory])
             .filter((value) => value != null && value !== "")
         ),
       ].sort();
@@ -102,64 +161,21 @@ export default function ProductFilter({
 
       // Reset subsequent selections
       setSelectedSubCategoryValue("");
-      setSelectedProductValue("");
-      setProductValues([]);
     } else {
       setSubCategoryValues([]);
       setSelectedSubCategoryValue("");
-      setSelectedProductValue("");
-      setProductValues([]);
     }
   }, [data, selectedProductGroupValue, selectedCategoryValue]);
 
-  // 4. When SubCategory changes, update final Product values
-  useEffect(() => {
-    if (
-      data.length > 0 &&
-      selectedProductGroupValue &&
-      selectedCategoryValue &&
-      selectedSubCategoryValue
-    ) {
-      const productGroupField = Object.keys(data[0])[2];
-      const categoryField = Object.keys(data[0])[3];
-      const subCategoryField = Object.keys(data[0])[4];
-      const productField = Object.keys(data[0])[5];
-
-      // Filter data where Product Group, Category, and SubCategory all match selections
-      const filteredData = data.filter(
-        (row) =>
-          row[productGroupField] === selectedProductGroupValue &&
-          row[categoryField] === selectedCategoryValue &&
-          row[subCategoryField] === selectedSubCategoryValue
-      );
-      setProductValues(filteredData);
-    } else {
-      setProductValues([]);
-    }
-  }, [
-    data,
-    selectedProductGroupValue,
-    selectedCategoryValue,
-    selectedSubCategoryValue,
-  ]);
-
-  // 5. Send filtered results to parent whenever uniqueProduct changes
-  useEffect(() => {
-    if (uniqueProduct.length > 0) {
-      onFilterChange(uniqueProduct);
-    } else if (
-      selectedProductGroupValue ||
-      selectedCategoryValue ||
-      selectedSubCategoryValue
-    ) {
-      onFilterChange([]);
-    }
-  }, [
-    uniqueProduct,
-    selectedProductGroupValue,
-    selectedCategoryValue,
-    selectedSubCategoryValue,
-  ]);
+  // Clear all filters function
+  const handleClear = () => {
+    setSelectedProductGroupValue("");
+    setSelectedCategoryValue("");
+    setSelectedSubCategoryValue("");
+    setCategoryValues([]);
+    setSubCategoryValues([]);
+    onClear();
+  };
 
   return (
     <>

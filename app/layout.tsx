@@ -45,7 +45,7 @@ export default function RootLayout({
       >
         <SawBlade />
         <Header />
-        <main>{children}</main>
+        <main className="mt-[50px]">{children}</main>
       </body>
     </html>
   );

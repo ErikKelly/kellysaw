@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-import ProductDefault from "./ProductDefault";
+// import ProductDefault from "./ProductDefault";
 
 export default function ProductList({ data }) {
   return (
@@ -16,7 +16,7 @@ export default function ProductList({ data }) {
           </div>
         </div>
       ) : (
-        <ProductDefault />
+        <div>Test</div>
       )}
     </>
   );

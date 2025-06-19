@@ -36,7 +36,7 @@ export default function AbstractDesignPage() {
       </div>
 
       {/* Content */}
-      <main
+      <div
         className={`relative z-10 flex min-h-screen flex-col items-center pt-22 px-4 transition-opacity duration-1000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
@@ -89,7 +89,7 @@ export default function AbstractDesignPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

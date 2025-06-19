@@ -1,8 +1,8 @@
 // app/abstract-design/page.tsx
 // "use client";
 
-import { useEffect, useState } from "react";
-import Products from "./products/page";
+// import { useEffect, useState } from "react";
+// import Products from "./products/page";
 import { Metadata } from "next";
 import ClientHomePage from "./ClientHomePage";
 
@@ -29,9 +29,6 @@ export const metadata: Metadata = {
 export default function AbstractDesignPage() {
   return (
     <>
-      <h1>
-        Denton, Texas\' Premier Tool Store - Professional Power Tools Since 1966
-      </h1>
       <ClientHomePage />
     </>
   );

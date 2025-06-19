@@ -36,13 +36,13 @@ export default function ClientHomePage() {
       </div>
 
       {/* Content */}
-      <main
-        className={`relative z-10 flex min-h-screen flex-col items-center pt-5 px-1 transition-opacity duration-1000 ${
+      <div
+        className={`relative z-10 flex min-h-screen flex-col items-stretch pt-5 px-1 transition-opacity duration-1000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >
         <Products />
-      </main>
+      </div>
     </div>
   );
 }
