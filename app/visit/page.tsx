@@ -37,12 +37,12 @@ export default function AbstractDesignPage() {
 
       {/* Content */}
       <div
-        className={`relative z-10 flex min-h-screen flex-col items-center pt-22 px-4 transition-opacity duration-1000 ${
+        className={`relative z-10 flex min-h-screen flex-col items-center px-4 transition-opacity duration-1000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >
         <div className="w-full max-w-4xl rounded-xl bg-white/80 p-8 backdrop-blur-sm">
-          <h2 className="mb-3 text-md md:text-xl font-semibold text-center text-emerald-700">
+          <h2 className="mb-3 text-md md:text-3xl font-semibold text-center text-primary">
             1700 Shady Oaks Drive, Suite 118
           </h2>
 
