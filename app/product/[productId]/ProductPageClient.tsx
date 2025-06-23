@@ -24,14 +24,16 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div key={product["Item Number"]} className="p-8 flex gap-4">
+    <div key={product["Item Number"]} className="p-8 flex gap-4 bg-white">
       <div className="flex-2/3">
         <div className="flex">
           <p className="text-2xl text-gray-600 mb-2 font-semibold">
             {product["Product Title"]}
           </p>
         </div>
-        <p className="font-bold pb-3">Item#: {product["Item Number"]}</p>
+        <p className="font-bold pb-3 text-gray-400">
+          Item#: {product["Item Number"]}
+        </p>
         <div className="block md:hidden">
           <Image
             src={product["Main Image"]}
@@ -42,7 +44,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           />
         </div>
         <p className=" text-gray-700">{product["Marketing Copy"]}</p>
-        <div className="flex gap-4 mt-5">
+        <div className="flex gap-4 mt-5 mb-[100px] md:mb-0">
           <div className="flex-2/3">
             {product["Usage"] && (
               <p className=" pt-3 text-gray-700">
@@ -53,11 +55,11 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="text-primary  pt-2 md:pt-0 pb-2 text-3xl font-bold">
                 Contact us for pricing!
               </div>
-              <div className="text-2xl md:text-3xl">
+              <div className="text-2xl md:text-3xl mb-5 md:mb-0">
                 {" "}
                 <a
                   href="tel:+19403877241"
-                  className="text-kelly-green font-bold hover:text-red-800 underline text-2xl lg:text-3xl"
+                  className="text-kelly-green text-black font-bold hover:text-red-800 underline text-2xl lg:text-3xl"
                 >
                   (940) 387-7241
                 </a>
@@ -65,7 +67,9 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
           </div>
           <div className="flex-1/3">
-            <h3 className="text-lg font-semibold mt-3">Technical Specs:</h3>
+            <h3 className="text-lg font-semibold mt-3 text-black">
+              Technical Specs:
+            </h3>
             <table className="border-collapse text-sm">
               <tbody>
                 {[
@@ -99,7 +103,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                       <td className="py-2 pr-4 font-medium text-gray-700">
                         {label}
                       </td>
-                      <td className="py-2">{product[key]}</td>
+                      <td className="py-2 text-gray-700">{product[key]}</td>
                     </tr>
                   ))}
               </tbody>

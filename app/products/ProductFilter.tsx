@@ -294,7 +294,7 @@ export default function ProductFilter({
 
   // Your JSX here with the new handlers...
   return (
-    <div className="bg-primary w-full p-2 rounded-tl-lg rounded-tr-lg border-l-2 border-r-2 border-t-2 border-black">
+    <div className="bg-primary w-full p-2 text-black rounded-tl-lg rounded-tr-lg border-l-2 border-r-2 border-t-2 border-black">
       <div className="flex gap-1 md:gap-5 px-1 md:px-5">
         {/* Product Group Dropdown */}
         <select
@@ -302,7 +302,7 @@ export default function ProductFilter({
           onChange={(e) => handleProductGroupChange(e.target.value)}
           className="bg-white text-[10px] md:text-base rounded-lg p-1"
         >
-          <option value="">Select Product Group</option>
+          <option value="">Product Group</option>
           {uniqueProductGroup.map((group) => (
             <option key={group} value={group}>
               {group}
@@ -317,7 +317,7 @@ export default function ProductFilter({
           disabled={!selectedProductGroupValue}
           className="bg-white text-[10px] md:text-base rounded-lg p-1"
         >
-          <option value="">Select Category</option>
+          <option value="">Category</option>
           {uniqueCategory.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -332,7 +332,7 @@ export default function ProductFilter({
           className="bg-white text-[10px] md:text-base rounded-lg p-1"
           disabled={!selectedCategoryValue}
         >
-          <option value="">Select SubCategory</option>
+          <option value="">SubCategory</option>
           {uniqueSubCategory.map((subCategory) => (
             <option key={subCategory} value={subCategory}>
               {subCategory}
@@ -341,7 +341,9 @@ export default function ProductFilter({
         </select>
 
         {/* Clear Button */}
-        <button onClick={handleClear}>Clear Filters</button>
+        <button onClick={handleClear} className="text-[10px] ml-2 md:text-base">
+          Clear
+        </button>
       </div>
     </div>
   );

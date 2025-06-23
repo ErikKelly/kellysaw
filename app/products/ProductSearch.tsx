@@ -41,7 +41,7 @@ export default function ProductSearch({
     <div className="text-sm md:text-base mr-5 md:mr-0">
       <input
         type="text"
-        className="border border-primary bg-white text-sm md:text-base focus:border-primary mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+        className="border border-primary bg-white text-black text-sm md:text-base focus:border-primary mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
         placeholder="Search products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

@@ -44,7 +44,7 @@ export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
         </h1>
       </div>
       <div style={{ paddingLeft: "100px" }}>
-        <div className="flex gap-4 bg-white absolute right-0 border-l-2 border-b-2 px-4 py-1 rounded-bl-2xl top-[60px] md:top-[60px]">
+        <div className="flex gap-4 bg-white text-black absolute right-0 border-l-2 border-b-2 px-4 py-1 rounded-bl-2xl top-[60px] md:top-[60px]">
           <div className="">
             <a
               href="mailto:info@kellysaw.com"

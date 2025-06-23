@@ -12,15 +12,17 @@ export default function ProductHighlight({ data }: { data: Product }) {
               {data["Product Title"]}
             </p>
           </div>
-          <p className="font-bold pb-3">Item#: {data["Item Number"]}</p>
+          <p className="font-bold pb-3 text-gray-400">
+            Item#: {data["Item Number"]}
+          </p>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex justify-center">
             <Image
               src={data["Main Image"]}
               alt="Product Image"
               width={400}
               height={400}
-              className="w-full h-full object-contain rounded mb-2"
+              className="w-48 sm:w-64 lg:w-full h-auto object-contain rounded"
             />
           </div>
 

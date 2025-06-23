@@ -41,7 +41,7 @@ export default function AbstractDesignPage() {
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="w-full max-w-4xl rounded-xl bg-white/80 p-8 backdrop-blur-sm">
+        <div className="w-full max-w-4xl rounded-xl bg-white p-8 backdrop-blur-sm">
           <h2 className="mb-3 text-md md:text-3xl font-semibold text-center text-primary">
             1700 Shady Oaks Drive, Suite 118
           </h2>
@@ -67,7 +67,7 @@ export default function AbstractDesignPage() {
                 We&apos;re located in Denton, Texas, just a short drive from
                 major highways for easy access.
               </p>
-              <ul className="list-disc pl-5">
+              <ul className="text-gray-600 list-disc pl-5">
                 <li>
                   If you&apos;re coming from Dallas or Fort Worth, take I-35E
                   North and exit onto Loop 288. From there, it&apos;s a quick

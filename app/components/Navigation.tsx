@@ -7,7 +7,7 @@ export default function Navigation() {
 
   return (
     <nav className="z-30">
-      <div className="max-w-7xl mx-auto flex space-x-4 justify-end text-xl font-bold">
+      <div className="max-w-7xl mx-auto flex md:space-x-4 justify-end text-1sm md:text-xl font-bold">
         <Link
           href="/"
           className={`px-3 rounded ${

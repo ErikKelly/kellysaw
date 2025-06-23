@@ -39,7 +39,7 @@ export default function Sharpening() {
       </div>
       <div className="flex gap-4">
         <div className="mx-5 md:mx-0 md:flex-2/3">
-          <div className="h-full text-base lg:text-[18px] bg-white/80 rounded-lg p-5 border-1 border-primary">
+          <div className="h-full text-base lg:text-[18px] text-black bg-white rounded-lg p-5 border-1 border-primary">
             <p>
               Since 1985, we&apos;ve specialized in sharpening the tools that
               keep North Texas working — from high-performance saw blades to
@@ -65,7 +65,7 @@ export default function Sharpening() {
           />
         </div>
       </div>
-      <div className="text-2xl md:text-3xl mt-10 font-bold text-center">
+      <div className="text-2xl md:text-3xl my-10 font-bold text-center">
         Sharper tools. Smoother work. Stronger results.
       </div>
     </div>

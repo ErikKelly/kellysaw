@@ -45,7 +45,7 @@ export default function ProductDefault({
     .filter(Boolean);
 
   return (
-    <div className="p-4 bg-white border-x-2 border-b-2 pb-10">
+    <div className="p-4 bg-white border-x-2 border-b-2 border-black pb-10 mb-10">
       <div className="text-3xl font-sriracha font-bold text-red-700 -rotate-4 inline-block">
         Top Sellers...
       </div>
