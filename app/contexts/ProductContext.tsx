@@ -7,21 +7,22 @@ import {
   ReactNode,
 } from "react";
 import Papa from "papaparse";
+import { Product, ProductLookup } from "../types/product";
 
 interface ProductContextType {
-  data: any[];
-  dataLookup: Record<string, any>;
+  data: Product[];
+  dataLookup: ProductLookup;
   loading: boolean;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-let cachedData: any[] | null = null;
-let cachedDataLookup: Record<string, any> | null = null;
+let cachedData: Product[] | null = null;
+let cachedDataLookup: ProductLookup | null = null;
 
 export function ProductProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<any[]>(cachedData || []);
-  const [dataLookup, setDataLookup] = useState<Record<string, any>>(
+  const [data, setData] = useState<Product[]>(cachedData || []);
+  const [dataLookup, setDataLookup] = useState<ProductLookup>(
     cachedDataLookup || {}
   );
   const [loading, setLoading] = useState(!cachedData);
@@ -41,17 +42,19 @@ export function ProductProvider({ children }: { children: ReactNode }) {
           transformHeader: (header) => header.trim(),
         });
 
-        const itemLookup: Record<string, any> = {};
-        result.data.forEach((item: any) => {
+        const itemLookup: ProductLookup = {};
+        const typedData = result.data as Product[];
+
+        typedData.forEach((item) => {
           if (item["Item Number"]) {
             itemLookup[item["Item Number"]] = item;
           }
         });
 
-        cachedData = result.data;
+        cachedData = result.data as Product[];
         cachedDataLookup = itemLookup;
 
-        setData(result.data);
+        setData(result.data as Product[]);
         setDataLookup(itemLookup);
       } catch (error) {
         console.error("Error loading CSV:", error);

@@ -7,7 +7,7 @@ export default function Navigation() {
 
   return (
     <nav className="z-30">
-      <div className="max-w-7xl mx-auto flex space-x-4 justify-end text-xl font-bold">
+      <div className="max-w-7xl mx-auto flex space-x-4 justify-end text-sm md:text-xl font-bold">
         <Link
           href="/"
           className={`px-3 rounded ${
@@ -21,7 +21,7 @@ export default function Navigation() {
         <Link
           href="/sharpening"
           className={`px-3  rounded ${
-            pathname === "/sharpening"
+            pathname === "/sharpening/"
               ? "bg-primary text-white"
               : "text-gray-300 hover:text-white"
           }`}
@@ -31,7 +31,7 @@ export default function Navigation() {
         <Link
           href="/visit"
           className={`px-3  rounded ${
-            pathname === "/visit"
+            pathname === "/visit/"
               ? "bg-primary text-white"
               : "text-gray-300 hover:text-white"
           }`}

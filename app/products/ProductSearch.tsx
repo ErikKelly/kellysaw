@@ -1,11 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { Product } from "../types/product";
+
+interface ProductSearchProps {
+  data: Product[];
+  onSearchResults: (results: Product[]) => void;
+  onClear: () => void;
+  isActive: boolean;
+  // Add any other props you have
+}
 
 export default function ProductSearch({
   data,
   onSearchResults,
   onClear,
-  isActive,
-}) {
+}: ProductSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Debounced search - only runs after user stops typing
@@ -30,10 +38,10 @@ export default function ProductSearch({
   }, [searchTerm, data, onSearchResults]);
 
   return (
-    <div className="">
+    <div className="text-sm md:text-base mr-5 md:mr-0">
       <input
         type="text"
-        className="border border-primary bg-white focus:border-primary mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+        className="border border-primary bg-white text-sm md:text-base focus:border-primary mr-2 focus:ring-2 focus:ring-blue-200 focus:outline-none"
         placeholder="Search products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

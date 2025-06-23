@@ -1,7 +1,9 @@
 import ProductCard from "./ProductCard";
+import { Product } from "../types/product";
+
 // import ProductDefault from "./ProductDefault";
 
-export default function ProductList({ data }) {
+export default function ProductHighlight({ data }: { data: Product[] }) {
   return (
     <>
       {data.length > 0 ? (

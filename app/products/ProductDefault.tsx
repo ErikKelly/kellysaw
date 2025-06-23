@@ -1,11 +1,16 @@
 import React from "react";
 import Slider from "react-slick";
 import ProductHighlight from "./ProductHighlight";
+import { ProductLookup } from "../types/product";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import Image from "next/image";
 
-export default function ProductDefault({ dataLookup }) {
+export default function ProductDefault({
+  dataLookup,
+}: {
+  dataLookup: ProductLookup;
+}) {
   const settings = {
     dots: true,
     fade: true,

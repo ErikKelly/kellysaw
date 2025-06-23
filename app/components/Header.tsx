@@ -25,7 +25,7 @@ export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
   return (
     <header className="fixed top-0 w-full left-0 bg-black shadow-md z-20 h-[50px] md:h-[60px] overflow-visible">
       <div
-        className={`absolute right-2 md:right-10 top-1/2 -translate-y-1/2 z-50 transition-opacity duration-4000 ${
+        className={`absolute md:right-10 w-full md:w-auto bg-black md:bg-transparent top-[50px] md:top-1/2 -translate-y-1/2 z-50 transition-opacity duration-4000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -39,12 +39,15 @@ export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
       ${isVisible ? "translate-x-0" : "-translate-x-full"}
     `}
       >
-        <h1 className="absolute  left-18 md:left-50 text-primary text-3xl md:text-7xl font-racing uppercase whitespace-nowrap">
+        <h1 className="absolute  left-20 md:left-50 text-primary text-3xl md:text-7xl font-racing uppercase whitespace-nowrap">
           <Link href="/">{siteName}</Link>
         </h1>
       </div>
       <div style={{ paddingLeft: "100px" }}>
-        <div className="flex gap-4 absolute right-0 bg-white border-l-2 border-b-2 px-4 py-1 rounded-bl-2xl top-[60px]">
+        <div className="font-racing hidden md:block text-sm md:text-xl  pl-[80px] mt-[10px] md:pl-[100px] lg:pl-[80px]">
+          Family owned since 1985
+        </div>
+        <div className="flex gap-4 bg-white absolute right-0 border-l-2 border-b-2 px-4 py-1 rounded-bl-2xl top-[60px] md:top-[60px]">
           <div className="">
             <a
               href="mailto:info@kellysaw.com"

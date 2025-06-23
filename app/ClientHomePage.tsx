@@ -11,7 +11,7 @@ export default function ClientHomePage() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden">
       {/* Abstract Background */}
       <div className="fixed inset-0 -z-10">
         {/* Large Blocks */}
@@ -37,7 +37,7 @@ export default function ClientHomePage() {
 
       {/* Content */}
       <div
-        className={`relative z-10 flex flex-col items-stretch  transition-opacity duration-1000 ${
+        className={`relative z-10 flex min-h-screen flex-col items-stretch  transition-opacity duration-1000 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >

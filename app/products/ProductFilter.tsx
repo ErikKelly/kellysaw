@@ -1,29 +1,84 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
+import { Product } from "../types/product";
+//   const [filteredData, setFilteredData] = useState<Product[]>([]);
 
 interface Props {
-  data: Record<string, string>[]; // Your existing data type
-  onFilterChange: (filteredData: Record<string, string>[]) => void;
+  data: Product[]; // Your existing data type
+  onFilterChange: (filteredData: Product[]) => void;
   onClear: () => void;
   isActive: boolean;
 }
+
+interface FieldNames {
+  productGroup: string;
+  category: string;
+  subCategory: string;
+  product: string;
+}
+
+// ✅ Move getFieldNames HERE - after interfaces, before component
+const getFieldNames = (data: Product[]): FieldNames | null => {
+  if (data.length === 0) return null;
+  const keys = Object.keys(data[0]);
+  return {
+    productGroup: keys[2],
+    category: keys[3],
+    subCategory: keys[4],
+    product: keys[5],
+  };
+};
+
+// Function to get currently filtered data based on selections
+const getFilteredData = (
+  data: Product[],
+  selectedProductGroupValue: string,
+  selectedCategoryValue: string,
+  selectedSubCategoryValue: string
+) => {
+  const fields = getFieldNames(data);
+  if (!fields) return [];
+  if (!fields.productGroup) return [];
+
+  let filtered = data;
+
+  // Apply Product Group filter if selected
+  if (selectedProductGroupValue) {
+    filtered = filtered.filter(
+      (row) => row[fields.productGroup] === selectedProductGroupValue
+    );
+  }
+
+  // Apply Category filter if selected
+  if (selectedCategoryValue) {
+    filtered = filtered.filter(
+      (row) => row[fields.category] === selectedCategoryValue
+    );
+  }
+
+  // Apply SubCategory filter if selected
+  if (selectedSubCategoryValue) {
+    filtered = filtered.filter(
+      (row) => row[fields.subCategory] === selectedSubCategoryValue
+    );
+  }
+
+  return filtered;
+};
 
 export default function ProductFilter({
   data,
   onFilterChange,
   onClear,
-  isActive,
 }: Props) {
-  const router = useRouter();
-
   const searchParams = useSearchParams();
-  const [isRestoringFromURL, setIsRestoringFromURL] = useState(true);
+  // const [isRestoringFromURL, setIsRestoringFromURL] = useState(true);
   const isInitialMount = useRef(true);
 
   // Unique options for each dropdown
-  const [uniqueProductGroup, setProductGroupValues] = useState([]);
-  const [uniqueCategory, setCategoryValues] = useState([]);
-  const [uniqueSubCategory, setSubCategoryValues] = useState([]);
+  const [uniqueProductGroup, setProductGroupValues] = useState<string[]>([]);
+  const [uniqueCategory, setCategoryValues] = useState<string[]>([]);
+  const [uniqueSubCategory, setSubCategoryValues] = useState<string[]>([]);
 
   // Selected values for each dropdown
   const [selectedProductGroupValue, setSelectedProductGroupValue] =
@@ -32,7 +87,11 @@ export default function ProductFilter({
   const [selectedSubCategoryValue, setSelectedSubCategoryValue] = useState("");
 
   // Update URL when filters change
-  const updateURL = (productGroup, category, subCategory) => {
+  const updateURL = (
+    productGroup: string,
+    category: string,
+    subCategory: string
+  ) => {
     const params = new URLSearchParams();
     if (productGroup) params.set("productGroup", productGroup);
     if (category) params.set("category", category);
@@ -40,8 +99,6 @@ export default function ProductFilter({
 
     const queryString = params.toString();
     const newUrl = queryString ? `?${queryString}` : window.location.pathname;
-
-    // Update URL without triggering navigation
     window.history.replaceState({}, "", newUrl);
   };
 
@@ -58,9 +115,11 @@ export default function ProductFilter({
     selectedSubCategoryValue,
   ]);
 
+  /*
+
   // Get field names for easier reference
-  const getFieldNames = () => {
-    if (data.length === 0) return {};
+  const getFieldNames = (): FieldNames | null => {
+    if (data.length === 0) return null; // Change {} to null
     const keys = Object.keys(data[0]);
     return {
       productGroup: keys[2],
@@ -69,42 +128,16 @@ export default function ProductFilter({
       product: keys[5],
     };
   };
-
-  // Function to get currently filtered data based on selections
-  const getFilteredData = () => {
-    const fields = getFieldNames();
-    if (!fields.productGroup) return [];
-
-    let filtered = data;
-
-    // Apply Product Group filter if selected
-    if (selectedProductGroupValue) {
-      filtered = filtered.filter(
-        (row) => row[fields.productGroup] === selectedProductGroupValue
-      );
-    }
-
-    // Apply Category filter if selected
-    if (selectedCategoryValue) {
-      filtered = filtered.filter(
-        (row) => row[fields.category] === selectedCategoryValue
-      );
-    }
-
-    // Apply SubCategory filter if selected
-    if (selectedSubCategoryValue) {
-      filtered = filtered.filter(
-        (row) => row[fields.subCategory] === selectedSubCategoryValue
-      );
-    }
-
-    return filtered;
-  };
+*/
 
   // Send filtered data to parent whenever any selection changes
   useEffect(() => {
-    const filteredData = getFilteredData();
-
+    const filteredData = getFilteredData(
+      data,
+      selectedProductGroupValue,
+      selectedCategoryValue,
+      selectedSubCategoryValue
+    );
     // Send results if any filter is selected, otherwise send empty array
     if (
       selectedProductGroupValue ||
@@ -120,12 +153,15 @@ export default function ProductFilter({
     selectedCategoryValue,
     selectedSubCategoryValue,
     data,
+    onFilterChange,
   ]);
 
   // Initialize from URL and set up all dropdowns on mount
   useEffect(() => {
     if (data.length > 0 && isInitialMount.current) {
-      const fields = getFieldNames();
+      const fields = getFieldNames(data);
+
+      if (!fields) return;
 
       // Set up Product Group options
       const unique = [
@@ -179,16 +215,18 @@ export default function ProductFilter({
       }
 
       isInitialMount.current = false;
-      setIsRestoringFromURL(false);
+      //    setIsRestoringFromURL(false);
     }
-  }, [data]);
+  }, [data, searchParams]);
 
   // Handle Product Group changes (user interactions only)
-  const handleProductGroupChange = (value) => {
+  const handleProductGroupChange = (value: string) => {
     setSelectedProductGroupValue(value);
 
     if (value) {
-      const fields = getFieldNames();
+      const fields = getFieldNames(data);
+      if (!fields) return;
+
       const filteredData = data.filter(
         (row) => row[fields.productGroup] === value
       );
@@ -211,11 +249,13 @@ export default function ProductFilter({
   };
 
   // Handle Category changes (user interactions only)
-  const handleCategoryChange = (value) => {
+  const handleCategoryChange = (value: string) => {
     setSelectedCategoryValue(value);
 
     if (value && selectedProductGroupValue) {
-      const fields = getFieldNames();
+      const fields = getFieldNames(data);
+      if (!fields) return;
+
       const filteredData = data.filter(
         (row) =>
           row[fields.productGroup] === selectedProductGroupValue &&
@@ -238,7 +278,7 @@ export default function ProductFilter({
   };
 
   // Handle SubCategory changes (user interactions only)
-  const handleSubCategoryChange = (value) => {
+  const handleSubCategoryChange = (value: string) => {
     setSelectedSubCategoryValue(value);
   };
 
@@ -255,12 +295,12 @@ export default function ProductFilter({
   // Your JSX here with the new handlers...
   return (
     <div className="bg-primary w-full p-2 rounded-tl-lg rounded-tr-lg border-l-2 border-r-2 border-t-2 border-black">
-      <div className="flex gap-5 px-5">
+      <div className="flex gap-1 md:gap-5 px-1 md:px-5">
         {/* Product Group Dropdown */}
         <select
           value={selectedProductGroupValue}
           onChange={(e) => handleProductGroupChange(e.target.value)}
-          className="bg-white rounded-lg p-1"
+          className="bg-white text-[10px] md:text-base rounded-lg p-1"
         >
           <option value="">Select Product Group</option>
           {uniqueProductGroup.map((group) => (
@@ -275,7 +315,7 @@ export default function ProductFilter({
           value={selectedCategoryValue}
           onChange={(e) => handleCategoryChange(e.target.value)}
           disabled={!selectedProductGroupValue}
-          className="bg-white rounded-lg p-1"
+          className="bg-white text-[10px] md:text-base rounded-lg p-1"
         >
           <option value="">Select Category</option>
           {uniqueCategory.map((category) => (
@@ -289,7 +329,7 @@ export default function ProductFilter({
         <select
           value={selectedSubCategoryValue}
           onChange={(e) => handleSubCategoryChange(e.target.value)}
-          className="bg-white rounded-lg p-1"
+          className="bg-white text-[10px] md:text-base rounded-lg p-1"
           disabled={!selectedCategoryValue}
         >
           <option value="">Select SubCategory</option>

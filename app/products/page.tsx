@@ -1,3 +1,5 @@
+"use client";
+
 import ProductPage from "./ProductPage";
 import { useProductData } from "../contexts/ProductContext"; // Updated import
 
