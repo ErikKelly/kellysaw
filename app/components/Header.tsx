@@ -39,14 +39,11 @@ export default function Header({ siteName = "Kelly Saw", delay = 500 }) {
       ${isVisible ? "translate-x-0" : "-translate-x-full"}
     `}
       >
-        <h1 className="absolute  left-20 md:left-50 text-primary text-3xl md:text-7xl font-racing uppercase whitespace-nowrap">
+        <h1 className="absolute  left-20 md:left-35 lg:left-50 text-primary text-3xl md:text-5xl lg:text-7xl font-racing uppercase whitespace-nowrap">
           <Link href="/">{siteName}</Link>
         </h1>
       </div>
       <div style={{ paddingLeft: "100px" }}>
-        <div className="font-racing hidden md:block text-sm md:text-xl  pl-[80px] mt-[10px] md:pl-[100px] lg:pl-[80px]">
-          Family owned since 1985
-        </div>
         <div className="flex gap-4 bg-white absolute right-0 border-l-2 border-b-2 px-4 py-1 rounded-bl-2xl top-[60px] md:top-[60px]">
           <div className="">
             <a

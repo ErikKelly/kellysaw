@@ -58,7 +58,10 @@ export default function RootLayout({
       >
         <SawBlade />
         <Header />
-        <main className="md:mx-[10vw] pt-[140px]  min-h-screen overflow-y-auto">
+        <div className="font-racing md:ml-[120px] lg:ml-[150px] md:mt-[70px] hidden md:block text-sm md:text-xl">
+          Family owned since 1985
+        </div>
+        <main className="md:mx-[10vw] mt-[20px] overflow-y-auto">
           <ProductProvider>{children}</ProductProvider>
         </main>
       </body>
