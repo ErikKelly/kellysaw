@@ -25,7 +25,7 @@ export default function Sharpening() {
         <div className="absolute top-2/3 right-1/2 h-[80px] w-[200px] bg-gray-300 opacity-30"></div>
         <div className="absolute top-[15%] left-[40%] h-[90px] w-[90px] bg-neutral-300 opacity-40"></div>
       </div>
-      <div className="text-sm mx-4 md:mx-0 md:text-2xl font-bold">
+      <div className="text-sm mx-4 md:mx-0 md:text-2xl mt-5 font-bold">
         <div className="flex justify-between">
           <div>Saw Blades</div>
           <div>Cutters</div>
@@ -33,13 +33,13 @@ export default function Sharpening() {
           <div>Planer Knives</div>
         </div>
         <div></div>
-        <div className="text-center text-2xl md:text-5xl mt-5">
+        <div className="text-center text-2xl md:text-5xl my-10">
           Sharpened to Precision!
         </div>
       </div>
       <div className="flex gap-4">
         <div className="mx-5 md:mx-0 md:flex-2/3">
-          <div className="text-base my-8 bg-white/50 rounded-lg p-5 border-1 border-primary">
+          <div className="h-full text-base lg:text-[18px] bg-white/80 rounded-lg p-5 border-1 border-primary">
             <p>
               Since 1985, we&apos;ve specialized in sharpening the tools that
               keep North Texas working — from high-performance saw blades to
@@ -55,17 +55,17 @@ export default function Sharpening() {
             </p>
           </div>
         </div>
-        <div className="hidden md:block md:flex-1/3 rounded-lg overflow-hidden pt-8">
+        <div className="hidden md:block md:flex-1/3 rounded-lg overflow-hidden">
           <Image
             src="/sawblade.jpg"
             alt="Saw Blade Img"
             width={400}
             height={400}
-            className="w-full h-auto object-contain rounded-lg mb-2"
+            className="w-full h-auto object-contain rounded-lg"
           />
         </div>
       </div>
-      <div className="text-2xl md:text-3xl font-bold text-center">
+      <div className="text-2xl md:text-3xl mt-10 font-bold text-center">
         Sharper tools. Smoother work. Stronger results.
       </div>
     </div>
