@@ -31,7 +31,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
     const loadCSV = async () => {
       try {
-        const response = await fetch("/data/product_list.csv");
+        const response = await fetch("/data/product-data-20250620.csv");
         const csvText = await response.text();
 
         const result = Papa.parse(csvText, {
